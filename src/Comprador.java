@@ -3,8 +3,7 @@ import PagoIncorrectoException;
 import PagoInsuficienteException;
 
 /**
- * Nota importante:
- * Los nombres de métodos y clases utilizadas (por ejemplo, getVuelto(), queConsumiste(), entre otros) deberán ser verificados y ajustados para coincidir con la versión final del proyecto.
+ * Entidad que simula a un cliente interactuando con la máquina expendedora.
  */
 
 public class Comprador {
@@ -12,11 +11,19 @@ public class Comprador {
     private int vuelto = 0;
 
     /**
-     * El comprador intenta adquirir un producto desde el expendedor, ingresando una moneda y seleccionando un producto. El expendedor puede lanzar excepciones en caso de error.
+     * El comprador intenta adquirir un producto desde el expendedor, ingresando una moneda y seleccionando un tipo.
+     * Si la compra falla, la excepción correspondiente delegará el error al Main.
+     *
+     * @param mon La moneda utilizada para el pago.
+     * @param tipo El tipo de producto deseado (Enum TipoProducto).
+     * @param exp La referencia a la máquina expendedora.
+     * @throws PagoIncorrectoException Si la moneda es nula.
+     * @throws PagoInsuficienteException Si el valor de la moneda no cubre el precio.
+     * @throws NoHayProductoException Si no queda stock en el depósito correspondiente.
      */
 
-    public Comprador(Moneda mon, Productos p, Expendedor exp) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
-        Producto prod = exp.comprarProducto(mon, p):
+    public Comprador(Moneda mon, TipoProducto tipo, Expendedor exp) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+        Producto prod = exp.comprarProducto(mon, tipo);
 
         if (prod != null) {
             this.producto = prod.consumir();
@@ -33,15 +40,19 @@ public class Comprador {
         }
     }
 
-    /*
-    * Retorna el total de dinero recibido como vuelto.
+    /**
+     * Retorna el total de dinero recibido como vuelto tras la transacción.
+     *
+     * @return El vuelto acumulado en formato entero.
      */
     public int cuantoVuelto() {
         return vuelto;
     }
 
-    /*
-    * Retorna el producto consumido.
+    /**
+     * Retorna el identificador del producto que fue consumido.
+     *
+     * @return Un string con el nombre del producto, o null si la compra falló.
      */
     public String queConsumiste(){
         return producto;
