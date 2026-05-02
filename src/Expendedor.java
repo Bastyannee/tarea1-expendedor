@@ -41,22 +41,24 @@ public class Expendedor {
 
     /**
      * Procesa la compra de un producto validando la moneda y el stock disponible.
-     * <p>TODO (Rama de Excepciones): Implementar los throws correspondientes y eliminar los return null.</p>
      * 
      * @param m La moneda utilizada como medio de pago.
      * @param tipo El tipo de producto solicitado (Enum).
-     * @return El Producto extraído si la compra es exitosa, o null temporalmente si ocurre un error.
+     * @return El Producto extraído si la compra es exitosa.
+     * @throws PagoIncorrectoException Si la moneda ingresada es nula.
+     * @throws PagoInsuficienteException Si el valor de la moneda es menor al precio del producto.
+     * @throws NoHayProductoException Si el depósito del producto solicitado está vacío.
      */
-    public Producto comprarProducto(Moneda m, TipoProducto tipo) {
+    public Producto comprarProducto(Moneda m, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
         if (m == null) {
-            return null; // Lanzará PagoIncorrectoException
+            throw new PagoIncorrectoException();
         }
 
         int precio = tipo.getPrecio();
 
         if (m.getValor() < precio) {
             depVuelto.add(m);
-            return null; // Lanzará PagoInsuficienteException
+            throw new PagoInsuficienteException();
         }
 
         Producto p = null;
@@ -70,7 +72,7 @@ public class Expendedor {
 
         if (p == null) {
             depVuelto.add(m);
-            return null; // Lanzará NoHayProductoException
+            throw new NoHayProductoException();
         }
 
         int vuelto = m.getValor() - precio;
