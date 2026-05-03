@@ -21,20 +21,20 @@ public class Comprador {
      */
 
     public Comprador(Moneda mon, TipoProducto tipo, Expendedor exp) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
-        Producto prod = exp.comprarProducto(mon, tipo);
+        try {
+            Producto prod = exp.comprarProducto(mon, tipo);
 
-        if (prod != null) {
-            this.producto = prod.consumir();
-        }
-        else {
-            this.producto = null;
-        }
-        /**
-         * Se obtiene el vuelto.
-         */
-        Moneda m;
-        while ((m = exp.getVuelto()) != null) {
-            vuelto = vuelto + m.getValor();
+            if (prod != null) {
+                this.producto = prod.consumir();
+            }
+        } finally {
+            /**
+             * El comprador obtiene su vuelto, haya error o no.
+             */
+            Moneda m;
+            while ((m = exp.getVuelto()) != null) {
+                vuelto = vuelto + m.getValor();
+            }
         }
     }
 
