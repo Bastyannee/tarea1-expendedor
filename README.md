@@ -3,20 +3,20 @@
 **Asignatura:** Desarrollo Orientado a Objetos
 
 ## Equipo de Desarrollo
-* Tomas Francisco Garrido Fierro
-* Maria Jose Norambuena Meza
+* Tomás Francisco Garrido Fierro
+* María José Norambuena Meza
 * Bastián Antonio Pérez Aguayo
 
 ---
 
-##Descripción del Proyecto
+## Descripción del Proyecto
 Esta tarea consiste en la simulación computacional de una máquina expendedora a través de la consola, aplicando estrictamente los pilares de la Programación Orientada a Objetos (Herencia, Polimorfismo, Encapsulamiento y Abstracción). 
 
 El sistema gestiona el flujo de compra controlando el stock de múltiples productos (Bebidas y Dulces), validando la autenticidad y valor del sistema monetario ingresado, y manejando el flujo de vuelto delegando los errores estructurales a través de Excepciones Personalizadas (*Checked Exceptions*).
 
 ---
 
-##Decisiones de Arquitectura e Ingeniería
+## Decisiones de Arquitectura e Ingeniería
 
 La arquitectura implementa los siguientes patrones y herramientas del lenguaje Java:
 
@@ -24,10 +24,11 @@ La arquitectura implementa los siguientes patrones y herramientas del lenguaje J
 2. **Enumeraciones (Enums):** Se implementó la clase `TipoProducto` como un Enum para centralizar el catálogo, los precios y evitar el uso de "Magic Strings" o variables quemadas en la capa de lógica de negocio.
 3. **Manejo de Errores (Checked Exceptions):** Se desacopló la lógica de fallos creando `PagoIncorrectoException`, `PagoInsuficienteException` y `NoHayProductoException`. La máquina expendedora lanza (*throws*) los errores y la interfaz cliente (`Main`) los captura (*catch*).
 4. **Interfaces:** Integración de la interfaz nativa `Comparable<Moneda>` en la clase abstracta `Moneda` para definir el orden natural de los objetos basado en su valor, permitiendo la utilización algorítmica de `Collections.sort()`.
+5. **Reutilización de Estructuras:** Se integraron las jerarquías de herencia para las clases de `Moneda` y `Bebida` desarrolladas anteriormente en la rama de polimorfismos de la tarea pa3p. Esto permitió aprovechar una base sólida de clases ya estructuradas, centrando el desarrollo en la nueva lógica de la máquina y sus excepciones.
 
 ---
 
-##Diagrama de Clases (UML)
+## Diagrama de Clases (UML)
 La siguiente arquitectura refleja el modelo estático de nuestro sistema, omitiendo por simplicidad visual (según rúbrica) las clases `Exception` y `Main`.
 ```mermaid
 classDiagram
