@@ -15,11 +15,14 @@ public class Expendedor {
     private Deposito<Producto> super8;
     /** Depósito interno para almacenar las monedas destinadas al vuelto. */
     private Deposito<Moneda> depVuelto;
+    /** Depósito interno para almacenar las monedas ingresadas. */
+    private Deposito<Moneda> depIngresos;
+
 
     /**
-     * Constructor del Expendedor. 
+     * Constructor del Expendedor.
      * Inicializa los depósitos y los llena "mágicamente" con la cantidad de productos especificada.
-     * 
+     *
      * @param numProductos La cantidad inicial de stock para CADA TIPO de producto.
      */
     public Expendedor(int numProductos) {
@@ -29,6 +32,7 @@ public class Expendedor {
         snickers = new Deposito<>();
         super8 = new Deposito<>();
         depVuelto = new Deposito<>();
+        depIngresos = new Deposito<>();
 
         for (int i = 0; i < numProductos; i++) {
             coca.add(new CocaCola(100 + i));
@@ -41,7 +45,7 @@ public class Expendedor {
 
     /**
      * Procesa la compra de un producto validando la moneda y el stock disponible.
-     * 
+     *
      * @param m La moneda utilizada como medio de pago.
      * @param tipo El tipo de producto solicitado (Enum).
      * @return El Producto extraído si la compra es exitosa.
@@ -75,18 +79,20 @@ public class Expendedor {
             throw new NoHayProductoException();
         }
 
+        depIngresos.add(m);
+
         int vuelto = m.getValor() - precio;
         while (vuelto > 0) {
             depVuelto.add(new Moneda100());
             vuelto -= 100;
         }
-        
+
         return p;
     }
 
     /**
      * Permite retirar el vuelto moneda por moneda tras una transacción.
-     * 
+     *
      * @return Una instancia de Moneda (de $100) desde el depósito de vuelto, o null si está vacío.
      */
     public Moneda getVuelto() {

@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class MainInteractivo {
     /**
      * Punto de entrada para las pruebas unitarias y de lógica.
+     *
      * @param args Argumentos de línea de comandos.
      */
     public static void main(String[] args) {
@@ -64,7 +65,18 @@ public class MainInteractivo {
                 System.out.println("Tu vuelto total es: $" + cliente.cuantoVuelto());
             } catch (PagoIncorrectoException | PagoInsuficienteException | NoHayProductoException e) {
                 System.out.println("Error en la compra: " + e.getMessage());
+
+                int recuperado = 0;
+                Moneda mFallida;
+                while ((mFallida = exp.getVuelto()) != null) {
+                    recuperado += mFallida.getValor();
+                }
+
+                if (recuperado > 0) {
+                    System.out.println("Se ha devuelto tu moneda. Recuperaste: $" + recuperado);
+                }
             }
         }
     }
+
 }
