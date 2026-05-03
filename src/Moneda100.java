@@ -1,7 +1,7 @@
 /*Clase concreta de una moneda de valor 100.*/
-public class Moneda500 extends Moneda {
+public class Moneda100 extends Moneda {
     
-    public Moneda500() {
+    public Moneda100() {
         super();
     }
 

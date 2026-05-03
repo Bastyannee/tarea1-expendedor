@@ -1,6 +1,4 @@
-import NoHayProductoException;
-import PagoIncorrectoException;
-import PagoInsuficienteException;
+
 
 /**
  * Entidad que simula a un cliente interactuando con la máquina expendedora.

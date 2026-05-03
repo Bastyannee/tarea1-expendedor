@@ -2,7 +2,7 @@
  * Clase abstracta que representa un medio de pago genérico.
  * Gestiona el identificador único basado en la dirección de memoria.
  */
-public abstract class Moneda {
+public abstract class Moneda implements Comparable<Moneda> {
     
     /**
      * Constructor por defecto.
